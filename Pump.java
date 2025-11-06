@@ -37,7 +37,7 @@ import java.util.Queue;
 
                 System.out.println( name +": " + car.getName() + " finishes service at Bay " + id );
 
-                System.out.println( name +": " + "Bay " + id +"is now free");
+                System.out.println( name +": " + "Bay " + id +" is now free");
                 pumps.signalSem();  
                 empty.signalSem();  
             }
@@ -46,5 +46,6 @@ import java.util.Queue;
         }
     }
 }
+
 
 
