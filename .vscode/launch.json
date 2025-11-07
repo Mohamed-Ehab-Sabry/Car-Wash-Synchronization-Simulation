@@ -1,0 +1,20 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch ServiceStation",
+            "request": "launch",
+            "mainClass": "ServiceStation",
+            "projectName": "Car-Wash-Synchronization-Simulation",
+            "vmArgs": [
+                // 1. Update this path to your JavaFX SDK 'lib' folder
+                "--module-path",
+                "C:/Apps/JavaFx/openjfx-25.0.1_windows-x64_bin-sdk/javafx-sdk-25.0.1/lib",
+                // 2. Tell it which JavaFX parts to load (controls are for buttons/labels)
+                "--add-modules",
+                "javafx.controls,javafx.fxml,javafx.graphics"
+            ]
+        }
+    ]
+}
