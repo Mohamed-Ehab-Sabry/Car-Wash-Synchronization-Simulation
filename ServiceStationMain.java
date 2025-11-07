@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-
 class Semaphore {
 
     protected int counter = 0;
@@ -23,7 +22,8 @@ class Semaphore {
 
             } catch (Exception e) {
 
-                System.out.println(ServiceStationMain.RED + "The error is " + e.getMessage() + ServiceStationMain.RESET);
+                System.out
+                        .println(ServiceStationMain.RED + "The error is " + e.getMessage() + ServiceStationMain.RESET);
             }
         }
     }
@@ -40,7 +40,8 @@ class Semaphore {
 
             } catch (Exception e) {
 
-                System.out.println(ServiceStationMain.RED + "The error is " + e.getMessage() + ServiceStationMain.RESET);
+                System.out
+                        .println(ServiceStationMain.RED + "The error is " + e.getMessage() + ServiceStationMain.RESET);
             }
         }
     }
@@ -136,35 +137,28 @@ class shared_queue {
         } catch (Exception e) {
             System.out.println(ServiceStationMain.RED + "Can't sleep" + ServiceStationMain.RESET);
         }
-        if (!value.equals("Stop")) {
 
-            System.out.println(ServiceStationMain.BRIGHT_GREEN + value + " has arrived" + ServiceStationMain.RESET);
-        }
-
-        if (pumps_Semaphore.isFull() && !value.equals("Stop")) {
-
-            System.out.println(ServiceStationMain.BRIGHT_YELLOW + value + " arrived and waiting" + ServiceStationMain.RESET);
-        }
         waiting_area_counter.check_if_free();
-        if (value.equals("Stop")) {
 
-            synchronized (produce_lock) {
+        synchronized (produce_lock) {
 
-                waiting_area[waiting_inptr] = value;
-                waiting_inptr = (waiting_inptr + 1) % waiting_area_size;
+            waiting_area[waiting_inptr] = value;
+            waiting_inptr = (waiting_inptr + 1) % waiting_area_size;
+
+            if (!value.equals("Stop")) {
+
+                System.out.println(
+                        ServiceStationMain.BRIGHT_GREEN + value + " has arrived" + ServiceStationMain.RESET);
+
+                if (pumps_Semaphore.isFull()) {
+                    System.out.println(
+                            ServiceStationMain.BRIGHT_YELLOW + value + " arrived and waiting"
+                                    + ServiceStationMain.RESET);
+                }
             }
-
-        } else {
-
-            synchronized (produce_lock) {
-
-                waiting_area[waiting_inptr] = value;
-                waiting_inptr = (waiting_inptr + 1) % waiting_area_size;
-            }
-
         }
-        service_bays_counter.check_if_waiting();
 
+        service_bays_counter.check_if_waiting();
     }
 
     public Object consume(String pump_name) {
@@ -191,12 +185,14 @@ class shared_queue {
         waiting_area_counter.check_if_waiting();
         if (!car_name.equals("Stop")) {
 
-            System.out.println(ServiceStationMain.BLUE + pump_name + ": " + car_name + " login" + ServiceStationMain.RESET);
+            System.out.println(
+                    ServiceStationMain.BLUE + pump_name + ": " + car_name + " login" + ServiceStationMain.RESET);
             try {
                 Thread.sleep(200);
             } catch (Exception e) {
                 System.err.println(
-                        ServiceStationMain.RED + "Can't sleep, the error: " + e.getMessage() + ServiceStationMain.RESET);
+                        ServiceStationMain.RED + "Can't sleep, the error: " + e.getMessage()
+                                + ServiceStationMain.RESET);
             }
             System.out.println(ServiceStationMain.BRIGHT_GREEN + pump_name + ": " + car_name + " begins service at Bay "
                     + (my_bay_idx + 1) + ServiceStationMain.RESET);
@@ -206,7 +202,8 @@ class shared_queue {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 System.err.println(
-                        ServiceStationMain.RED + "The Service was interrupted " + e.getMessage() + ServiceStationMain.RESET);
+                        ServiceStationMain.RED + "The Service was interrupted " + e.getMessage()
+                                + ServiceStationMain.RESET);
             }
             System.out.println(ServiceStationMain.BRIGHT_GREEN + pump_name + ": " + car_name + " finshes service"
                     + ServiceStationMain.RESET);
@@ -278,7 +275,8 @@ public class ServiceStationMain {
             System.err.println(ServiceStationMain.RED + "Can't join with other threads, the error is: " + e.getMessage()
                     + ServiceStationMain.RESET);
         }
-        System.out.println(ServiceStationMain.PURPLE + "All cars processed; simulation ends" + ServiceStationMain.RESET);
+        System.out
+                .println(ServiceStationMain.PURPLE + "All cars processed; simulation ends" + ServiceStationMain.RESET);
     }
 
 }
